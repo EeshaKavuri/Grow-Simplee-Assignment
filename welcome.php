@@ -19,7 +19,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true) {
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="style.css">
     <title>Prime Video Clone!</title>
   </head>
   <body>
@@ -60,55 +60,34 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true) {
 </nav>
 
 <div class="container mt-4">
-<h3><?php echo "Welcome ". $_SESSION['username']?>!<br><br><h5>Enter your movie name<h6>(The result will be all the movies starting with the text you enter)</hh6><br></h5></h3>
+<h1><?php echo "Welcome ". $_SESSION['username']?>!<h1><br>
+<h5>Enter your movie name: </h5>
+<h6><i>(The result will be all the movies starting with the text you enter)</i></h6><br>
+
 <form method="post">
 <label>Search</label>
 <input type="text" name="search">
-<input type="submit" name="submit">
-<input type="submit" name="submit">
-	
+<input type="button" value="director" onclick="location='director.php'" />
+<input type="button" value="rating " onclick="location='rating.php'" />
+<?php
+if(isset($_POST['director'])){
+  $str = mysqli_real_escape_string($con,$_POST['str']);
+  $sql = "SELECT director, rating FROM `search` WHERE name LIKE '%$str%';";
+  $res = mysqli_query($con,$sql);
+  echo $sql;
+  if(mysqli_query($res)>0){
+    while($row=mysqli_fetch_assoc($res)){
+      echo $sql;
+    }
+  }
+
+}
+?>
 </form>
 
 </body>
 </html>
 
-<?php
-
-
-if (isset($_POST["submit"])) {
-	$str = $_POST["search"];
-	$sth = $con->prepare("SELECT * FROM `search` WHERE Name = '$str'");
-
-	$sth->setFetchMode(PDO:: FETCH_OBJ);
-	$sth -> execute();
-
-	if($row = $sth->fetch())
-	{
-		?>
-		<br><br><br>
-		<table>
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
-			</tr>
-			<tr>
-				<td><?php echo $row->Name; ?></td>
-				<td><?php echo $row->Description;?></td>
-			</tr>
-
-		</table>
-<?php 
-	}
-		
-		
-		else{
-			echo "Name Does not exist";
-		}
-
-
-}
-
-?>
 <hr>
 
 </div>
