@@ -1,6 +1,9 @@
 Data Base Details:
 
-1. Data Base that stores all information of users
+1. main Database
+    Login (Data Base) 
+2. Table that stores all information of users
     Login (Data Base) -> Users (Table)
-2. Data Base that has the information of Movies
-    Login (Data Base) -> Movies
+3. Table that has the information of Movies
+    Login (Data Base) -> Search (Table)
+
